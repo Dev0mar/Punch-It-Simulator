@@ -1,0 +1,6 @@
+return {
+	Products = {
+		
+	},
+	Gamepasses = {}
+}
