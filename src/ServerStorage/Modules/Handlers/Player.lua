@@ -35,6 +35,7 @@ function Handler:init(Services, Util)
 		if not PlayerData then return end
 
 		-- DataService.UpdateData(Player, "Currency.Cash", 100000)
+		Player:SetAttribute("DataReady", true)
 	end)
 
 	Players.PlayerAdded:Connect(function(Player)
@@ -48,7 +49,7 @@ function Handler:init(Services, Util)
 	Players.PlayerRemoving:Connect(function(Player)
 		PlayerTempData[Player] = nil
 	end)
-
+	PhysicsService:CreateCollisionGroup("PlayerCharacter")
 	PhysicsService:CollisionGroupSetCollidable("PlayerCharacter", "PlayerCharacter", false)
 end
 

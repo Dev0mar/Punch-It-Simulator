@@ -1,3 +1,11 @@
+--[[
+	Loading Handler:
+
+	Shows loading screen until player's data is ready, then shows the main UI
+
+	TODO: preload essential assets
+]]
+
 local Players = game:GetService("Players")
 local Loader = {}
 

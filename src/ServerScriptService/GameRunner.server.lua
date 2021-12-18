@@ -55,7 +55,7 @@ for _, Handler in ipairs(Modules.Handlers:GetChildren()) do
 			end)
 
 			if not InitSuccess then
-				warn("Failed to initialize handler [ " .. Handler:GetFullName() .. " ] got error:\n " .. tostring(InitResult))
+				warn(debug.traceback("Failed to initialize handler [ " .. Handler:GetFullName() .. " ] got error:\n " .. tostring(InitResult)))
 				return
 			end
 		end
