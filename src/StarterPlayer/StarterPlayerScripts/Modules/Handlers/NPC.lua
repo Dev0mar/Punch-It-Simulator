@@ -13,7 +13,7 @@ local Handler = {}
 local Player = Players.LocalPlayer
 
 local Cache = {}
-local Remotes, NPCRemote
+local Remotes, NPCRemote, DamageSound
 local Initialized = false
 local NPCRange = 20
 
@@ -82,11 +82,18 @@ function HandlePlayerCharacter(Char)
 	task.spawn(function()
 		local Humanoid = Char:WaitForChild("Humanoid")
 		if not Humanoid then return end
+		DamageSound = Instance.new("Sound")
+		DamageSound.SoundId = "rbxassetid://4958430221"
+		DamageSound.Parent = Char.HumanoidRootPart
+		local LastHit = 0
 		Humanoid.Touched:Connect(function(Obj)
 			local Target = Obj.Parent
 			if Player:GetAttribute("Punching") and CollectionService:HasTag(Target, "NPC") and Cache[Target] and Cache[Target].Active then
+				if os.time() - LastHit <= 0.15 then return end
+				LastHit = os.time()
 				if Cache[Target].AnimationTrakcs["Damaged"] and not Cache[Target].AnimationTrakcs["Damaged"].IsPlaying then
 					Cache[Target].AnimationTrakcs["Damaged"]:Play()
+					DamageSound:Play()
 				end
 			end
 		end)

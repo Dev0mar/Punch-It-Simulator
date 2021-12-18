@@ -79,7 +79,7 @@ function Handler:init(_, Utils)
 		LastFired = os.time()
 		for _, Data in pairs(Cache) do
 			if Data.CurrentNPC then
-				Data.CurrentNPC:Destroy()
+				Data.CurrentNPC.Object:Destroy()
 			end
 		end
 	end)

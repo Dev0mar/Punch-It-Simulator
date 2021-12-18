@@ -16,7 +16,7 @@ local Player = Players.LocalPlayer
 local PunchAnimation = Instance.new("Animation")
 PunchAnimation.AnimationId = "rbxassetid://8256935615"
 
-local Punch
+local Punch, PunchSound
 local Initialized = false
 
 function HandleCharacter(Char)
@@ -26,6 +26,10 @@ function HandleCharacter(Char)
 	Humanoid.Died:Connect(function()
 		Punch = nil
 	end)
+
+	PunchSound = Instance.new("Sound")
+	PunchSound.SoundId = "rbxassetid://1112042117"
+	PunchSound.Parent = Char.HumanoidRootPart
 
 	Punch = Humanoid:LoadAnimation(PunchAnimation)
 end
@@ -48,6 +52,9 @@ function Handler:init(_, Util)
 		if table.find(PunchButtons, Input.UserInputType) then
 			if Input.UserInputType == Enum.UserInputType.Gamepad1 and not Input.KeyCode == Enum.KeyCode.ButtonX then return end
 			if Punch and not Punch.IsPlaying then
+				if PunchSound then
+					PunchSound:Play()
+				end
 				Punch:Play()
 				Player:SetAttribute("Punching", true)
 				Util.Promise.race({
